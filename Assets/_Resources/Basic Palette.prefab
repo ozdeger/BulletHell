@@ -1262,14 +1262,14 @@ Tilemap:
   m_Origin: {x: -2, y: -16, z: 0}
   m_Size: {x: 34, y: 25, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
-  m_TileOrientation: 0
+  m_TileOrientation: 6
   m_TileOrientationMatrix:
-    e00: 1
+    e00: 3.4
     e01: 0
     e02: 0
     e03: 0
     e10: 0
-    e11: 1
+    e11: 3.2
     e12: 0
     e13: 0
     e20: 0
@@ -1321,12 +1321,12 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.13999999, y: 0.195, z: 0}
+  m_ChunkCullingBounds: {x: 1, y: 1, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
   m_Mode: 0
-  m_DetectChunkCullingBounds: 0
+  m_DetectChunkCullingBounds: 1
   m_MaskInteraction: 0
 --- !u!1 &9075180230977940718
 GameObject:
