@@ -143,3 +143,5 @@ Assets/Haste/Editor/InternalResources/Recommendations.asset
 ProjectSettings/GvhProjectSettings.xml
 remote_config_data
 Assets/Haste/Editor/InternalResources/Recommendations.asset.meta
+Assets/_Plugins/RainbowAssets/!Core/Source/RainbowCore.src.unitypackage.meta
+Assets/_Plugins/RainbowAssets/RainbowFolders/Editor/Source/RainbowFolders.src.unitypackage.meta
