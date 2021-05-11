@@ -24,10 +24,12 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
 
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");
+        dir = dir.normalized;
+
         if(dir != Vector2.zero)
         {
             Vector3 modifiedMovement = _modifier.ApplyMovementEffects(dir);
-            _movementModule.Move(dir.normalized);
+            _movementModule.Move(modifiedMovement);
         }
     }
 

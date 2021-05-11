@@ -32,11 +32,11 @@ public class MovementModule : MonoBehaviour, IMovementModule
     public void Sprint()
     {
         moveSpeed = moveSpeed * 2;
-        coroutine = increaseSpeed(3.0f);
+        coroutine = IncreaseSpeed(3.0f);
         StartCoroutine(coroutine);
     }
 
-    private IEnumerator increaseSpeed(float waitTime)
+    private IEnumerator IncreaseSpeed(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         moveSpeed = moveSpeed / 2;
