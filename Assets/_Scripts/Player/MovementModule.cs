@@ -12,6 +12,7 @@ public class MovementModule : MonoBehaviour, IMovementModule
 
     private Vector2 _dir;
 
+    private IEnumerator coroutine;
 
     private void Start()
     {
@@ -27,8 +28,25 @@ public class MovementModule : MonoBehaviour, IMovementModule
         }
         
     }
+
+    public void Sprint()
+    {
+        moveSpeed = moveSpeed * 2;
+        coroutine = increaseSpeed(3.0f);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator increaseSpeed(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        moveSpeed = moveSpeed / 2;
+    }
+
+
     public void Move(Vector2 dir)
     {
         _dir = dir;
     }
+
+    
 }

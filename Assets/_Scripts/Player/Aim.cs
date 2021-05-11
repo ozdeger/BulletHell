@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Aim : MonoBehaviour
+public class Aim : MonoBehaviour, IAim
 {
     
     [Header("References")]
@@ -11,6 +11,9 @@ public class Aim : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [Header("Options")]
     [SerializeField] private float bulletForce = 20f;
+
+
+    private IEnumerator coroutine;
 
 
     private void Update()
@@ -36,6 +39,23 @@ public class Aim : MonoBehaviour
             rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
         }
     }
+
+    public void increaseBulletForce()
+    {
+        bulletForce += 20f;
+        coroutine = doubleBullet(3f);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator doubleBullet(float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        bulletForce -= 20f;
+
+    }
+
+
 
     public static Vector3 GetMouseWorldPosition()
     {

@@ -155,10 +155,12 @@ GameObject:
   - component: {fileID: 5295283679388123834}
   - component: {fileID: 1612098726161979695}
   - component: {fileID: 1612098726161979694}
+  - component: {fileID: 7635296939805678912}
   - component: {fileID: 1094184923854141070}
   - component: {fileID: 2992114441563026332}
   - component: {fileID: 1612098726161979698}
-  - component: {fileID: 7635296939805678912}
+  - component: {fileID: 5886386806859077150}
+  - component: {fileID: 6022513219217352252}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -253,6 +255,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &7635296939805678912
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648506313749892292}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.17139857}
+  serializedVersion: 2
+  m_Radius: 0.0814104
 --- !u!114 &1094184923854141070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,19 +312,31 @@ MonoBehaviour:
   firePoint: {fileID: 2002510795}
   bulletPrefab: {fileID: 1256557527215570541, guid: bb37ea8e2840d9e438b8ee91d7e560e6, type: 3}
   bulletForce: 20
---- !u!58 &7635296939805678912
-CircleCollider2D:
+--- !u!114 &5886386806859077150
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8648506313749892292}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.17139857}
-  serializedVersion: 2
-  m_Radius: 0.0814104
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7970aa24653bd644d9d6be4d4b750629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6022513219217352252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648506313749892292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240abd749df8a954e85f0d261b5f0128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTemporary: 0
+  coolDown:
+    cooldown: 0
+  multiplier: 2
