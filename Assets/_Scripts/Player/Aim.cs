@@ -16,6 +16,7 @@ public class Aim : MonoBehaviour, IAim
     private IEnumerator coroutine;
 
 
+
     private void Update()
     {
         TakeSight();
@@ -42,17 +43,15 @@ public class Aim : MonoBehaviour, IAim
 
     public void increaseBulletForce()
     {
-        bulletForce += 20f;
+        bulletForce *= 2f;
         coroutine = doubleBullet(3f);
         StartCoroutine(coroutine);
     }
 
     private IEnumerator doubleBullet(float waitTime)
     {
-
         yield return new WaitForSeconds(waitTime);
-        bulletForce -= 20f;
-
+        bulletForce /= 2f;
     }
 
 
