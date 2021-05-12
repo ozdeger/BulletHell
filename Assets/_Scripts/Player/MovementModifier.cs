@@ -18,10 +18,10 @@ public class MovementModifier : MonoBehaviour
 
     public Vector2 ApplyMovementEffects(Vector2 movementVector)
     {
-        Debug.Log(_movementEffects.Length);
         Vector2 newMovementVector = movementVector;
         foreach(IMovementEffect effect in _movementEffects)
-        {
+        { 
+            Debug.Log(effect);
             newMovementVector = effect.Modify(newMovementVector);
         }
         return newMovementVector;

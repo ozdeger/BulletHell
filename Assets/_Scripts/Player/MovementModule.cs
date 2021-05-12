@@ -26,7 +26,6 @@ public class MovementModule : MonoBehaviour, IMovementModule
             _rb.MovePosition(_rb.position + _dir * moveSpeed * Time.fixedDeltaTime);
             _dir = Vector2.zero;
         }
-        
     }
 
     public void Sprint()

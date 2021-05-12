@@ -61,7 +61,6 @@ public class SpeedEffect : MonoBehaviour, IMovementEffect
 
     public Vector2 Modify(Vector2 movementVector)
     {
-        Debug.Log("multiplier: "+multiplier.ToString());
         return movementVector * multiplier;
     }
 }
