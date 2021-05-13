@@ -41,6 +41,11 @@ public class MovementModule : MonoBehaviour, IMovementModule
         moveSpeed = moveSpeed / 2;
     }
 
+    public void setMoveSpeed(float increaseSpeed)
+    {
+        moveSpeed = increaseSpeed;
+    }
+
 
     public void Move(Vector2 dir)
     {

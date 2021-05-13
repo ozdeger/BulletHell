@@ -825,7 +825,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282814480}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.25, y: 1.76, z: 0}
+  m_LocalPosition: {x: 2.25, y: 3.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 553253882}
@@ -843,13 +843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd10dee03cf590144b6f40bff74ad80e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target:
-  - {fileID: 235353781}
-  - {fileID: 237338270}
-  speed: 5
-  dir: {x: 0, y: 0, z: 0}
-  _counter: 0
-  curTarget: {fileID: 0}
 --- !u!1 &378250146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,6 +3389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kiteDistance: 3
   chaseDistance: 6
+  min: -5
+  max: 5
 --- !u!114 &2013154858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3516,9 +3511,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.11352712}
+  m_Offset: {x: 0.0022586188, y: -0.13569026}
   serializedVersion: 2
-  m_Radius: 0.08647289
+  m_Radius: 0.062051296
 --- !u!50 &2013154864
 Rigidbody2D:
   serializedVersion: 4
