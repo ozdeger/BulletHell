@@ -8,13 +8,13 @@ public class KıteAIModule : MonoBehaviour
     [SerializeField] private float chaseDistance;
     [SerializeField] private float min;
     [SerializeField] private float max;
-    [SerializeField] private float tempBulletDmg;
+
     [SerializeField] private float tempSetMoveSpeed;
 
     private MovementModifier _modifier;
     private IMovementModule _movementModule;
     private MovementModule _MovementModule;
-    private HealthBar _healthBar;
+    
 
     private bool isHit = false;
 
@@ -67,25 +67,18 @@ public class KıteAIModule : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        var health = GetComponent<Health>();
-        _healthBar = GetComponent<HealthBar>();
-
         if (collision.gameObject.tag == "Obstacle")
         {
             _MovementModule = GetComponent<MovementModule>();
             _MovementModule.setMoveSpeed(tempSetMoveSpeed);
 
-            health.DealDamage(tempBulletDmg);
-            _healthBar.SetSize(health.CurHealth / health.MaxHealth);
-
-
             GetNewTargetPosition();
             isHit = true;
         }
     }
+
 
     private void HitMovement()
     {
