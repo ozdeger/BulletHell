@@ -45,7 +45,6 @@ public class KıteAIModule : MonoBehaviour
 
     private void NormalMovement()
     {
-        
         Vector2 dir = Vector2.zero;
 
         if (Vector2.Distance(PlayerManager.Instance.Player.position, transform.position) < kiteDistance)
