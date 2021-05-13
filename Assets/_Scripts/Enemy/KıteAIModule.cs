@@ -73,7 +73,7 @@ public class KıteAIModule : MonoBehaviour
             _MovementModule = GetComponent<MovementModule>();
             _MovementModule.setMoveSpeed(4f);
             Debug.Log("Hit");
-            SpawnObj();
+            GetNewTargetPosition();
             isHit = true;
         }
     }
@@ -91,7 +91,7 @@ public class KıteAIModule : MonoBehaviour
         }
         else
         {
-            SpawnObj();
+            GetNewTargetPosition();
         }
         if (dir != Vector2.zero)
         {
@@ -101,11 +101,14 @@ public class KıteAIModule : MonoBehaviour
             
     }
 
-    private void SpawnObj()
+    private void GetNewTargetPosition()
     {
-        Vector3 pos = center + new Vector3(Random.Range(-size.x, size.x), Random.Range(-size.y, size.y), 0);
-        targetPos = pos;
-        Debug.DrawLine(pos, pos + new Vector3(.1f, 0, 0));
+        targetPos = center + new Vector3(Random.Range(-size.x, size.x), Random.Range(-size.y, size.y), 0);
     }
 
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(targetPos, .2f);
+    }
 }
