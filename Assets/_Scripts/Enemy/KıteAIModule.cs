@@ -4,6 +4,7 @@ using UnityEngine;
 using Utilities;
 public class KıteAIModule : MonoBehaviour
 {   
+
     [SerializeField] private float kiteDistance;
     [SerializeField] private float chaseDistance;
     [SerializeField] private float min;
@@ -15,13 +16,11 @@ public class KıteAIModule : MonoBehaviour
     private IMovementModule _movementModule;
     private MovementModule _MovementModule;
     
-
     private bool isHit = false;
 
     Vector3 center;
     Vector3 size;
     Vector2 targetPos;
-
 
     private void Start()
     {

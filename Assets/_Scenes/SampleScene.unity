@@ -3423,7 +3423,6 @@ MonoBehaviour:
   chaseDistance: 6
   min: -5
   max: 5
-  tempBulletDmg: 50
   tempSetMoveSpeed: 4
 --- !u!114 &2013154858
 MonoBehaviour:
@@ -3543,7 +3542,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0022586188, y: -0.13569026}
@@ -3964,8 +3963,66 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1612098726161979698, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
+--- !u!1001 &3194385054013569599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1986051655}
+    m_Modifications:
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001273, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194385053246001274, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
+      propertyPath: m_Name
+      value: Glock
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fc9939f8d0aa6cb40a9aae0fba4b1b6b, type: 3}
 --- !u!1001 &4545023519933093768
 PrefabInstance:
   m_ObjectHideFlags: 0
