@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
-public class MovementModifier : MonoBehaviour
+public class MovementModifier : MonoBehaviourWithLog
 {
     public IMovementEffect[] _movementEffects;
 
@@ -21,7 +22,6 @@ public class MovementModifier : MonoBehaviour
         Vector2 newMovementVector = movementVector;
         foreach(IMovementEffect effect in _movementEffects)
         { 
-            Debug.Log(effect);
             newMovementVector = effect.Modify(newMovementVector);
         }
         return newMovementVector;

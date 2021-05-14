@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Aim : MonoBehaviour, IAim
 {
-    
+    private enum GunModes { Single, Shotgun}
+    private static float spreadIntensityMultiplier = 4;
+
     [Header("References")]
     [SerializeField] private Transform aimTransform;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
-    [Header("Options")]
+    [Header("General Options")]
+    [SerializeField] private GunModes gunMode;
     [SerializeField] private float bulletForce = 20f;
+    [Header("Shotgun Options")]
+    [SerializeField] private float spread;
+    [SerializeField] private float spreadRandomness;
+    [SerializeField] private float bulletCount;
 
 
     private IEnumerator coroutine;
@@ -35,9 +42,48 @@ public class Aim : MonoBehaviour, IAim
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            switch (gunMode)
+            {
+                case GunModes.Single:
+                    ShootSingle();
+                    break;
+                case GunModes.Shotgun:
+                    ShootShotgun();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void ShootSingle()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+    }
+
+    private void ShootShotgun()
+    {
+        float spreadIncreasePerBullet = (spread * 2) / (bulletCount - 1);
+        float curSpread = -spread;
+
+        for (int i = 0; i < bulletCount; i++)
+        {
+            Debug.Log(curSpread);
+            //summon bullet prefab
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            // get a random direction for new bullet
+            float calculatedSpread = (curSpread + Random.Range(-spreadRandomness, spreadRandomness));
+            Vector2 dir = ((Vector2)firePoint.transform.position + ((Vector2)firePoint.right * spreadIntensityMultiplier) + ((Vector2)firePoint.up * calculatedSpread)).normalized;
+            Debug.DrawRay(firePoint.position, dir*10, Color.red, 8);
+            Debug.DrawRay(firePoint.position, firePoint.right*10, Color.green, 8);
+            curSpread += spreadIncreasePerBullet;
+            
+            //add force to bullet
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+            rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
+
         }
     }
 

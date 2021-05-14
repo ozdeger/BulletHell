@@ -5,6 +5,8 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 100f;
+    [Header("Health Bar Settings (Optional)")]
+    [SerializeField] private HealthBar healthBar;
 
     private float _curHealth;
 
@@ -15,11 +17,13 @@ public class Health : MonoBehaviour
     private void Start()
     {
         ResetHealth();
+        UpdateHealthBar();
     }
 
     public void ResetHealth()
     {
         _curHealth = maxHealth;
+        UpdateHealthBar();
     }
 
     public void DealDamage(float damage)
@@ -29,17 +33,7 @@ public class Health : MonoBehaviour
         {
             Die();
         }
-    }
-
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    public void ChangeHealth(float _health)
-    {
-        
-        _curHealth = _health;
+        UpdateHealthBar();
     }
 
     public void HealthRegen()
@@ -60,4 +54,13 @@ public class Health : MonoBehaviour
         InvokeRepeating(nameof(HealthRegen), 2.0f, 0.1f);
     }
 
+    private void UpdateHealthBar()
+    {
+        healthBar?.SetSize(_curHealth / maxHealth);
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 }
