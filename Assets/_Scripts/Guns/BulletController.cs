@@ -15,9 +15,10 @@ public class BulletController : MonoBehaviour
         TriggerAllModStart();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        TriggerAllModFixedUpdate();
+        TriggerAllModUpdate();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,9 +42,9 @@ public class BulletController : MonoBehaviour
         foreach (BulletMod mod in _modList) { mod.OnBulletStart(); }
     }
 
-    private void TriggerAllModFixedUpdate()
+    private void TriggerAllModUpdate()
     {
-        foreach (BulletMod mod in _modList) { mod.OnBulletFixedUpdate(); }
+        foreach (BulletMod mod in _modList) { mod.OnBulletUpdate(); }
     }
 
     private void TriggerAllModHitSomething(GameObject something)

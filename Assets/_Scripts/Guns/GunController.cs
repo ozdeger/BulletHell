@@ -11,6 +11,7 @@ public class GunController : MonoBehaviour
 
     private Camera _camera;
 
+
     private void Start()
     {
         _camera = CameraManager.Instance.Camera;

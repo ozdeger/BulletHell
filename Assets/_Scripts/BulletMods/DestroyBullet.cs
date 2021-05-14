@@ -8,7 +8,7 @@ public class DestroyBullet : BulletMod
     {
     }
 
-    public override void OnBulletFixedUpdate()
+    public override void OnBulletUpdate()
     {
     }
 
@@ -17,6 +17,11 @@ public class DestroyBullet : BulletMod
         if (something.TryGetComponent<Tag>(out Tag somethingsTag))
         {
             if (somethingsTag.Tags.Contains(Tags.Obstacle))
+            {
+                Destroy(gameObject);
+            }
+
+            if (somethingsTag.Tags.Contains(Tags.Enemy))
             {
                 Destroy(gameObject);
             }
