@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2040398659150826571}
   - component: {fileID: 8956404832339657421}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Glock Bullet
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
-  tempBulletDmg: 50
 --- !u!50 &2040398659150826571
 Rigidbody2D:
   serializedVersion: 4

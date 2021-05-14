@@ -37,7 +37,7 @@ public class WonderAiInutModule : MonoBehaviour
         curRandomTargetPos = wonderAnchor + Random.insideUnitCircle * wonderRange;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos() 
     {
         if (wonderAnchor == Vector2.zero) return;
         Handles.DrawWireDisc(wonderAnchor, new Vector3(0, 0, 1), wonderRange);
