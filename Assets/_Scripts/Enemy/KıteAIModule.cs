@@ -87,7 +87,6 @@ public class KıteAIModule : MonoBehaviour
         {
             dir = targetPos - (Vector2) transform.position;
             dir = dir.normalized;
-            Debug.Log("vardı");
         }
         else
         {

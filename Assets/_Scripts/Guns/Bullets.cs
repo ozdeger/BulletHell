@@ -9,11 +9,13 @@ public class Bullets : MonoBehaviour
     private HealthBar _healthBar;
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
+    {   
+       
         var health = collision.GetComponent<Health>();
         _healthBar = collision.GetComponent<HealthBar>();
 
         health.DealDamage(damage);
         _healthBar.SetSize(health.CurHealth / health.MaxHealth);
+        
     }
 }

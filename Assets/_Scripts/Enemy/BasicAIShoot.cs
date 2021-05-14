@@ -11,12 +11,6 @@ public class BasicAIShoot : MonoBehaviour
     [SerializeField] private float shootCdTime;
 
     private bool canShoot = true;
-    
-    
-
-    private void Start()
-    {
-    }
 
     private void Update()
     {
@@ -29,7 +23,6 @@ public class BasicAIShoot : MonoBehaviour
     private void Shoot()
     {
         if (!canShoot) return;
-
 
         Vector2 dir;
         dir = PlayerManager.Instance.Player.position - transform.position;

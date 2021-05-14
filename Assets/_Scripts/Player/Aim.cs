@@ -14,11 +14,8 @@ public class Aim : MonoBehaviour, IAim
     [SerializeField] private float bulletForce = 20f;
     [SerializeField] private float spread = .1f;
 
-
     private IEnumerator coroutine;
     
-    
-
     private void Update()
     {
         TakeSight();
@@ -37,7 +34,6 @@ public class Aim : MonoBehaviour, IAim
     {
         if (Input.GetMouseButtonDown(0))
         {
-
             Vector2 spreadAmount = new Vector2(Random.Range(-spread, spread), 0);
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
