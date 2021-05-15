@@ -7,8 +7,8 @@ public class Health : MonoBehaviour
     [SerializeField] [ShowOnly] private float _curHealth;
     [SerializeField] float maxHealth = 100f;
 
-    [Header("Health Bar Settings (Optional)")]
-    [SerializeField] private HealthBar healthBar;
+    [Header("Health Bar")]
+    [SerializeField] private Transform bar;
 
     public float CurHealth { get => _curHealth; }
 
@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
         {
             Die();
         }
-        //UpdateHealthBar();
+        UpdateHealthBar();
     }
 
     public void HealthRegen()
@@ -54,10 +54,15 @@ public class Health : MonoBehaviour
         InvokeRepeating(nameof(HealthRegen), 2.0f, 0.1f);
     }
 
+
     private void UpdateHealthBar()
+    { 
+        SetSize(_curHealth / maxHealth);
+    }
+
+    public void SetSize(float sizeNormalized)
     {
-       
-        healthBar.SetSize(_curHealth / maxHealth);
+        bar.localScale = new Vector3(sizeNormalized, 1f);
     }
 
     private void Die()
