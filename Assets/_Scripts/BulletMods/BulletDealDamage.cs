@@ -18,6 +18,7 @@ public class BulletDealDamage : BulletMod
                     BulletController.DealDamageToTarget(something.transform, damage);
                     return;
                 }
+
             }
         }
     }

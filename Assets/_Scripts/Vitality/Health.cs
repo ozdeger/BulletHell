@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
         {
             Die();
         }
-        UpdateHealthBar();
+        //UpdateHealthBar();
     }
 
     public void HealthRegen()
@@ -56,7 +56,8 @@ public class Health : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        healthBar?.SetSize(_curHealth / maxHealth);
+       
+        healthBar.SetSize(_curHealth / maxHealth);
     }
 
     private void Die()
