@@ -160,7 +160,6 @@ GameObject:
   - component: {fileID: 2796467142421314734}
   - component: {fileID: 6286092169320832882}
   - component: {fileID: 2138058491}
-  - component: {fileID: 5520546452558788868}
   m_Layer: 0
   m_Name: BulletBlueprint
   m_TagString: Untagged
@@ -322,19 +321,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tags: 06000000
---- !u!114 &5520546452558788868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804335647668371561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 102602324b578d944aa20599c316f798, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailPrefab: {fileID: 1517869041484361232, guid: 0739522ab0fbc2940a26be1f52a7f4f3, type: 3}
 --- !u!1 &8648506313749892292
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _curHealth: 0
   maxHealth: 100
-  healthBar: {fileID: 0}
+  bar: {fileID: 0}
 --- !u!114 &1650440109645331120
 MonoBehaviour:
   m_ObjectHideFlags: 0

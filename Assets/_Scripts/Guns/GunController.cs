@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+
     [Header("Required")]
     [SerializeField] private Transform gunObject;
     [SerializeField] private Transform bullerSpawnPoint;
     [SerializeField] private GameObject bulletBlueprint;
+
+    [Header("Options")]    
+    [SerializeField] private float bulletDelay;    
+    [SerializeField] public enum Mode { Single, Burst};
+    [SerializeField] public Mode curMode = Mode.Single;
 
     private Camera _camera;
 
@@ -27,7 +33,20 @@ public class GunController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            ShootBullet();
+            switch (curMode)
+            {
+                case Mode.Single:
+                    {
+                        ShootBullet();
+                        break;
+                    }
+                case Mode.Burst:
+                    {
+                        ShootBurst();
+                        break;
+                    }
+            }
+            
         }
     }
 
@@ -47,6 +66,18 @@ public class GunController : MonoBehaviour
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         gunObject.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+    private IEnumerator ShootBurstRoutine()
+    {
+        ShootBullet();
+        yield return new WaitForSeconds(bulletDelay);
+        ShootBullet();
+    }
+
+    private void ShootBurst()
+    {
+        StartCoroutine(ShootBurstRoutine());
     }
 
     //private void ShootShotgun()
