@@ -60,7 +60,6 @@ public class BulletController : MonoBehaviour
     public static void DealDamageToTarget(Transform target, float damage)
     {
         Health healthController = target.GetComponent<Health>();
-
         /*HealthBar healthBar = target.GetComponent<HealthBar>();
 healthBar.SetSize(healthController.CurHealth / healthController.MaxHealth);*/
         healthController.DealDamage(damage);

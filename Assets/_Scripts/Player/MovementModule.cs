@@ -9,7 +9,6 @@ public class MovementModule : MonoBehaviour, IMovementModule
     private Rigidbody2D _rb;
 
     private bool _active = true;
-
     private Vector2 _dir;
 
     private IEnumerator coroutine;
@@ -24,7 +23,7 @@ public class MovementModule : MonoBehaviour, IMovementModule
         if (_active)
         {
             _rb.MovePosition(_rb.position + _dir * moveSpeed * Time.fixedDeltaTime);
-            _dir = Vector2.zero;
+            _dir = Vector2.zero;        
         }
     }
 
@@ -46,11 +45,8 @@ public class MovementModule : MonoBehaviour, IMovementModule
         moveSpeed = increaseSpeed;
     }
 
-
     public void Move(Vector2 dir)
     {
         _dir = dir;
     }
-
-    
 }

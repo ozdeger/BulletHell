@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 1612098726161979695}
   - component: {fileID: 1612098726161979694}
   - component: {fileID: 7635296939805678912}
+  - component: {fileID: 7540482739761357438}
   - component: {fileID: 1094184923854141070}
   - component: {fileID: 2992114441563026332}
   - component: {fileID: 5886386806859077150}
@@ -451,6 +452,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.17139857}
   serializedVersion: 2
   m_Radius: 0.0814104
+--- !u!114 &7540482739761357438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648506313749892292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b64c5e2583271f4faf694e42413605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  dashLength: 0.15
+  dashSpeed: 100
+  dashResetTime: 1
+  characterController: {fileID: 0}
 --- !u!114 &1094184923854141070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +553,10 @@ MonoBehaviour:
   gunObject: {fileID: 322309011}
   bullerSpawnPoint: {fileID: 2002510795}
   bulletBlueprint: {fileID: 6804335647668371561}
+  curMode: 0
+  bulletDelay: 0
+  burstCounter: 0
+  fireRate: 0
 --- !u!114 &4442200910379319883
 MonoBehaviour:
   m_ObjectHideFlags: 0

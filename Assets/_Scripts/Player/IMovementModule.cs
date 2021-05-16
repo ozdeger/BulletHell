@@ -6,5 +6,4 @@ public interface IMovementModule
 {
     public abstract void Move(Vector2 dir);
     public abstract void Sprint();
-    
 }
