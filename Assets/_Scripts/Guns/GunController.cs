@@ -9,13 +9,22 @@ public class GunController : MonoBehaviour
     [SerializeField] private Transform gunObject;
     [SerializeField] private Transform bullerSpawnPoint;
     [SerializeField] private GameObject bulletBlueprint;
-
-    [Header("Options")]    
-    [SerializeField] private float bulletDelay;    
     [SerializeField] public enum Mode { Single, Burst};
     [SerializeField] public Mode curMode = Mode.Single;
 
+    [Header("Burst Options")]    
+    [SerializeField] private float bulletDelay;
+    [SerializeField] private float burstCounter;
+    
+
+    [Header("Single Options")]
+    [SerializeField] private float fireRate;
+
+   
     private Camera _camera;
+    private int gun_mode = 1;
+    private float _lastShot = 0f;
+   
 
 
     private void Start()
@@ -31,26 +40,46 @@ public class GunController : MonoBehaviour
 
     private void CheckShoot()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            switch (curMode)
+        ChangeMode();
+         switch (curMode)
             {
                 case Mode.Single:
+                    if (Input.GetMouseButton(0))
                     {
-                        ShootBullet();
-                        break;
+                        ShootBullet();   
                     }
+                    break;
                 case Mode.Burst:
+                    if (Input.GetMouseButtonDown(0))
                     {
                         ShootBurst();
-                        break;
                     }
-            }
-            
-        }
+                    break;
+                default:
+                    break;
+            }    
+    }
+
+    private void ChangeMode()
+    {
+        if (Input.GetKeyDown("b")) 
+        { 
+            gun_mode *= -1; 
+            if (gun_mode == 1) { curMode = Mode.Single; }
+            else { curMode = curMode = Mode.Burst; }
+        }  
     }
 
     private void ShootBullet()
+    {
+        if(Time.time > fireRate + _lastShot)
+        {
+            Shoot();
+            _lastShot = Time.time;
+        }
+    }
+
+    private void Shoot()
     {
         GameObject newBullet = Instantiate(bulletBlueprint);
         newBullet.transform.position = bullerSpawnPoint.position;
@@ -70,11 +99,12 @@ public class GunController : MonoBehaviour
 
     private IEnumerator ShootBurstRoutine()
     {
-        ShootBullet();
-        yield return new WaitForSeconds(bulletDelay);
-        ShootBullet();
+        for (int i = 0; i < burstCounter; i++)
+        {
+            Shoot();
+            yield return new WaitForSeconds(bulletDelay);
+        }
     }
-
     private void ShootBurst()
     {
         StartCoroutine(ShootBurstRoutine());

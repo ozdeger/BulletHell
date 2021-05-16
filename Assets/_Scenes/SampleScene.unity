@@ -4073,8 +4073,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1650440109645331120, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
+      propertyPath: fireRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650440109645331120, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
       propertyPath: bulletDelay
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650440109645331120, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
+      propertyPath: burstCounter
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5295283679388123834, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
       propertyPath: m_RootOrder
