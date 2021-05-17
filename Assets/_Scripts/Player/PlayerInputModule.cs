@@ -9,8 +9,6 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
     private IDashModule _dashModule;
 
 
-
-
     private void Start()
     {
         _modifier = GetComponent<MovementModifier>();
@@ -26,13 +24,13 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
         dir.y = Input.GetAxisRaw("Vertical");
         dir = dir.normalized;
         
-        if (Input.GetKeyDown("space") && _dashModule.isDashing)
+        if (Input.GetKeyDown("space"))
         {
             //_movementModule.Sprint();
-            _dashModule.Dash(dir);
+            _dashModule.DoDash(dir);
         }
 
-        if(dir != Vector2.zero)
+        if(dir != Vector2.zero && !_dashModule.IsDashing)
         {
             Vector3 modifiedMovement = _modifier.ApplyMovementEffects(dir);
             _movementModule.Move(modifiedMovement);

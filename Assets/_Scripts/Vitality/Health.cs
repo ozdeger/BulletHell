@@ -56,8 +56,11 @@ public class Health : MonoBehaviour
 
 
     private void UpdateHealthBar()
-    { 
-        SetSize(_curHealth / maxHealth);
+    {
+        if (bar)
+        {
+            SetSize(_curHealth / maxHealth);
+        }
     }
 
     public void SetSize(float sizeNormalized)

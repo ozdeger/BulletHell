@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDashModule 
 {
-    bool isDashing { get; }
+    bool IsDashing { get; }
 
-    public abstract void Dash(Vector2 dir);
+    void DoDash(Vector2 dir);
 }

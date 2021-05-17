@@ -1,77 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class DashModule : MonoBehaviour, IDashModule
 {
-    public float speed = 10f;
-    public float dashLength = 0.15f;
-    public float dashSpeed = 100f;
-    public float dashResetTime = 1f;
+    [Header("Temporary")]
+    [SerializeField] private float movementSpeed;
+    [Header("Options")]
+    [SerializeField] private float dashDistance;
+    [SerializeField] private float dashSeconds;
+    [SerializeField] private Cooldown dashCooldown;
 
-    private Vector3 dashMove;
-    private float dashing = 0f;
-    private float dashingTime = 0f;
-    private bool canDash = true;
-    private bool dashingNow = false;
-    private bool dashReset = true;
+    private IMovementModule movementModule;
+    private bool isDashing = false;
+    private Vector2 moveStep;
 
-    private IMovementModule _movementModule;
-    public bool isDashing { get => canDash; }
+    public bool IsDashing { get => isDashing; }
 
-    void Start()
+    private void Start()
     {
-        _movementModule = GetComponent<IMovementModule>();
-        test();
+        movementModule = GetComponent<IMovementModule>();
     }
 
-    public void Dash(Vector2 dir)
+    private void FixedUpdate()
     {
-        dashMove = dir;
+        dashCooldown.Step(Time.fixedDeltaTime);
+
+        if (isDashing)
+        {
+            Dash();
+        }
     }
 
-    private void test()
+    public void DoDash(Vector2 dir)
     {
-        if (dashingNow == true && dashing < dashLength)
+        if (dashCooldown.IsReady)
         {
-            Debug.Log("burda aticak");
+            dashCooldown.EnterCooldown();
+            isDashing = true;
 
-            _movementModule.Move(dashMove * dashSpeed *Time.deltaTime);
-            dashing += Time.deltaTime;
-            Debug.Log("bitti" + dashMove);
-        }
-        if (dashing < dashLength && dashingTime < dashResetTime && dashReset == true && canDash == true)
-        {
-            canDash = false;
-            dashReset = false;
-            dashingNow = true;
-        }
-        if (dashing >= dashLength)
-        {
-            dashingNow = false;
-        }
+            float calculatedDashSeconds = dashSeconds / movementSpeed;
+            float distanceStep = dashDistance / ((calculatedDashSeconds));
+            moveStep = distanceStep * dir;
 
-        if (dashReset == false)
-        {
-            dashingTime += Time.deltaTime;
+            Invoke(nameof(StopDash), calculatedDashSeconds);
         }
+    }
 
-        if (canDash == false && dashing >= dashLength)
-        {
-            canDash = true;
-            dashing = 0f;
-        }
+    private void Dash()
+    {
+        movementModule.Move(moveStep);
+    }
 
-        if (dashingNow == false)
-        {
-            _movementModule.Move(dashMove * speed * Time.deltaTime);
-        }
-
-        if (dashingTime >= dashResetTime && dashReset == false)
-        {
-            dashReset = true;
-            dashingTime = 0f;
-        }
+    private void StopDash()
+    {
+        isDashing = false;
     }
 }
-
