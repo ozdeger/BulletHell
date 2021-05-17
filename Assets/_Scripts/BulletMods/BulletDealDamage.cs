@@ -27,7 +27,7 @@ public class BulletDealDamage : BulletMod
     {
     }
 
-    public override void OnBulletUpdate()
+    public override void OnBulletFixedUpdate()
     {
     }
 

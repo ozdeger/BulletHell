@@ -10,7 +10,7 @@ public class BulletMoveNormal : BulletMod
     {
     }
 
-    public override void OnBulletUpdate()
+    public override void OnBulletFixedUpdate()
     {
     }
 

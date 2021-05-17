@@ -8,7 +8,7 @@ public class DestroyBullet : BulletMod
     {
     }
 
-    public override void OnBulletUpdate()
+    public override void OnBulletFixedUpdate()
     {
     }
 

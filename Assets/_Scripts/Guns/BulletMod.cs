@@ -7,7 +7,7 @@ public abstract class BulletMod : MonoBehaviour
 {
     public abstract void OnBulletDestroyed();
 
-    public abstract void OnBulletUpdate();
+    public abstract void OnBulletFixedUpdate();
 
     public abstract void OnBulletHitSomething(GameObject something);
 

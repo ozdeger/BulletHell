@@ -15,9 +15,9 @@ public class BulletController : MonoBehaviour
         TriggerAllModStart();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        TriggerAllModUpdate();
+        TriggerAllModFixedUpdate();
 
     }
 
@@ -42,9 +42,9 @@ public class BulletController : MonoBehaviour
         foreach (BulletMod mod in _modList) { mod.OnBulletStart(); }
     }
 
-    private void TriggerAllModUpdate()
+    private void TriggerAllModFixedUpdate()
     {
-        foreach (BulletMod mod in _modList) { mod.OnBulletUpdate(); }
+        foreach (BulletMod mod in _modList) { mod.OnBulletFixedUpdate(); }
     }
 
     private void TriggerAllModHitSomething(GameObject something)

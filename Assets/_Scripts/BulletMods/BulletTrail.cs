@@ -10,7 +10,7 @@ public class BulletTrail : BulletMod
     {
     }
 
-    public override void OnBulletUpdate()
+    public override void OnBulletFixedUpdate()
     {
         Transform summon = Instantiate(trailPrefab).transform;
         summon.position = transform.position;
