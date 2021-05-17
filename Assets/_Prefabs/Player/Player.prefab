@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 1
-  dashDistance: 0.3
+  dashDistance: 0.2
   dashSeconds: 0.1
   dashCooldown:
-    cooldown: 0
+    cooldown: 1
