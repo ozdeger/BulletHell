@@ -37,6 +37,7 @@ namespace Utilities
             }
             return tMin;
         }
+
         public static Transform GetClosestEnemy(Vector2 position, Collider2D[] enemies)
         {
             Transform tMin = null;
@@ -52,5 +53,7 @@ namespace Utilities
             }
             return tMin;
         }
+
+
     }
 }

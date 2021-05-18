@@ -7,15 +7,15 @@ public class KıteAIModule : MonoBehaviour
 
     [SerializeField] private float kiteDistance;
     [SerializeField] private float chaseDistance;
-    [SerializeField] private float min;
-    [SerializeField] private float max;
 
     [SerializeField] private float tempSetMoveSpeed;
 
     private MovementModifier _modifier;
     private IMovementModule _movementModule;
     private MovementModule _MovementModule;
-    
+
+    private List<Transform> _targetsInRange = new List<Transform>();
+
     private bool isHit = false;
 
     Vector3 center;
@@ -32,14 +32,8 @@ public class KıteAIModule : MonoBehaviour
 
     private void Update()
     {
-        if (isHit == false)
-        {
-            NormalMovement();
-        }
-        else
-        {
-            HitMovement();
-        }
+        CheckAround();
+
     }
 
     private void NormalMovement()
@@ -109,5 +103,49 @@ public class KıteAIModule : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(targetPos, .2f);
+    }
+
+    private void CheckAround()
+    {
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, 2f,Vector2.zero);
+
+        _targetsInRange.Clear();
+
+        foreach(RaycastHit2D closestEbj in hit)
+        {
+            if (!closestEbj.collider.gameObject.GetComponent<Tag>().Tags.Contains(Tags.Enemy))
+            {
+                Debug.DrawLine(transform.position, closestEbj.point, Color.red);
+                //Debug.Log((transform.position - closestEbj.collider.gameObject.transform.position).normalized);
+                Debug.Log("Etrafımda biri var");
+                _targetsInRange.Add(closestEbj.transform);
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, transform.position + transform.right * 2f, Color.green);
+            }
+        }
+
+        Transform closestTarget = UsefulStaticFunctions.GetClosestEnemy(transform.position, _targetsInRange);
+        Debug.Log(closestTarget.gameObject.name);
+
+        if (closestTarget)
+        {
+            Vector2 homingDir = (transform.position - closestTarget.position).normalized;
+
+            if (Vector2.Distance(transform.position, closestTarget.position) >= 2f)
+            {
+                homingDir = -homingDir.normalized;          
+            }
+
+            if (homingDir != Vector2.zero)
+            {
+                Debug.Log("Moving");
+                //homingDir = -homingDir.normalized;
+
+                Vector3 modifiedMovement = _modifier.ApplyMovementEffects(homingDir);
+                _movementModule.Move(modifiedMovement);
+            }
+        }
     }
 }
