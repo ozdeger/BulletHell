@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
+using System;
+
+
 public class KıteAIModule : MonoBehaviour
 {   
+    
 
     [SerializeField] private float kiteDistance;
     [SerializeField] private float chaseDistance;
@@ -14,9 +18,25 @@ public class KıteAIModule : MonoBehaviour
     private IMovementModule _movementModule;
     private MovementModule _MovementModule;
 
-    private List<Transform> _targetsInRange = new List<Transform>();
 
-    private bool isHit = false;
+    private Vector2 obstacleCenterDir = Vector2.zero;
+    private Collider2D _collider;
+    private Vector2 colliderCenter;
+    private float obstacleMultiplier;
+
+    private Vector2[] _raycastDirections =
+    {
+        new Vector2(0,1),
+        new Vector2(0.7f,0.7f),
+        new Vector2(1,0),
+        new Vector2(0.7f,-0.7f),
+        new Vector2(0,-1),
+        new Vector2(-0.7f,-0.7f),
+        new Vector2(-1,0),
+        new Vector2(-0.7f,0.7f),              
+    };
+    
+
 
     Vector3 center;
     Vector3 size;
@@ -24,15 +44,21 @@ public class KıteAIModule : MonoBehaviour
 
     private void Start()
     {
+        _collider = GetComponent<Collider2D>();
         _modifier = GetComponent<MovementModifier>();
         _movementModule = GetComponent<IMovementModule>();
         center = new Vector3(0, 0, 0);
         size = new Vector3(5, 3 ,0);
+
+        
+
+        InvokeRepeating(nameof(CheckAround), 0, .1f);
     }
 
     private void Update()
     {
-        CheckAround();
+        NormalMovement();
+        
 
     }
 
@@ -40,20 +66,25 @@ public class KıteAIModule : MonoBehaviour
     {
         Vector2 dir = Vector2.zero;
 
-        if (Vector2.Distance(PlayerManager.Instance.Player.position, transform.position) < kiteDistance)
-        {
-            dir = PlayerManager.Instance.Player.position - transform.position;
-            dir = -dir.normalized;
-        }
-
         if (Vector2.Distance(PlayerManager.Instance.Player.position, transform.position) >= chaseDistance)
         {
-            dir = PlayerManager.Instance.Player.position - transform.position;
-            dir = dir.normalized;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, obstacleCenterDir, 2f);
+            dir = (PlayerManager.Instance.Player.position - transform.position).normalized;
+            dir = (dir / 2 - obstacleCenterDir * (1 - (hit.distance / 2)));
         }
 
-        if (dir != Vector2.zero)
+        if (Vector2.Distance(PlayerManager.Instance.Player.position, transform.position) < kiteDistance)
         {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, obstacleCenterDir, 2f);
+            dir = (PlayerManager.Instance.Player.position - transform.position).normalized;
+            dir = (-dir / 2 - obstacleCenterDir * (1-(hit.distance / 2)));
+        }
+
+        if (dir.sqrMagnitude >.01f)
+        {
+            Debug.Log(dir.sqrMagnitude);
+            dir.Normalize();
+            Debug.DrawLine(transform.position, (Vector2)transform.position + (dir * 3f), Color.magenta);
             Vector3 modifiedMovement = _modifier.ApplyMovementEffects(dir);
             _movementModule.Move(modifiedMovement);
         }
@@ -61,21 +92,20 @@ public class KıteAIModule : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        /*if (collision.gameObject.tag == "Obstacle")
         {
             _MovementModule = GetComponent<MovementModule>();
             _MovementModule.setMoveSpeed(tempSetMoveSpeed);
 
             GetNewTargetPosition();
             isHit = true;
-        }
+        }*/
     }
 
 
     private void HitMovement()
     {
         Vector2 dir = Vector2.zero;
-
 
         if(Vector2.Distance(targetPos, transform.position) >= .1f)
         {
@@ -90,15 +120,14 @@ public class KıteAIModule : MonoBehaviour
         {
             Vector3 modifiedMovement = _modifier.ApplyMovementEffects(dir);
             _movementModule.Move(modifiedMovement);
-        }
-            
+        }    
     }
-
+    
     private void GetNewTargetPosition()
     {
-        targetPos = center + new Vector3(Random.Range(-size.x, size.x), Random.Range(-size.y, size.y), 0);
+        //targetPos = center + new Vector3(Random.Range(-size.x, size.x), Random.Range(-size.y, size.y), 0);
     }
-
+    
 
     private void OnDrawGizmos()
     {
@@ -107,45 +136,29 @@ public class KıteAIModule : MonoBehaviour
 
     private void CheckAround()
     {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, 2f,Vector2.zero);
+        colliderCenter = _collider.bounds.center;
+        obstacleCenterDir = Vector2.zero;
 
-        _targetsInRange.Clear();
-
-        foreach(RaycastHit2D closestEbj in hit)
+        List<Vector2> hitDirections = new List<Vector2>();
+        for (int i = 0; i < _raycastDirections.Length; i++)
         {
-            if (!closestEbj.collider.gameObject.GetComponent<Tag>().Tags.Contains(Tags.Enemy))
+            Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (_raycastDirections[i] * 2f), Color.red,.1f);
+            RaycastHit2D[] hitResults = UsefulStaticFunctions.Raycast2DWithIgnore(colliderCenter, _raycastDirections[i], 2f, gameObject);
+            foreach(RaycastHit2D hit in hitResults)
             {
-                Debug.DrawLine(transform.position, closestEbj.point, Color.red);
-                //Debug.Log((transform.position - closestEbj.collider.gameObject.transform.position).normalized);
-                Debug.Log("Etrafımda biri var");
-                _targetsInRange.Add(closestEbj.transform);
-            }
-            else
-            {
-                Debug.DrawLine(transform.position, transform.position + transform.right * 2f, Color.green);
-            }
-        }
+                if(hit.collider.gameObject.GetComponent<Tag>().Tags.Contains(Tags.Obstacle))
+                {
+                    Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (_raycastDirections[i] * 2f), Color.green,.1f);
+                    hitDirections.Add(_raycastDirections[i]);
+                }             
+            }                
+        }      
 
-        Transform closestTarget = UsefulStaticFunctions.GetClosestEnemy(transform.position, _targetsInRange);
-        Debug.Log(closestTarget.gameObject.name);
-
-        if (closestTarget)
+        foreach(Vector2 dir in hitDirections)
         {
-            Vector2 homingDir = (transform.position - closestTarget.position).normalized;
-
-            if (Vector2.Distance(transform.position, closestTarget.position) >= 2f)
-            {
-                homingDir = -homingDir.normalized;          
-            }
-
-            if (homingDir != Vector2.zero)
-            {
-                Debug.Log("Moving");
-                //homingDir = -homingDir.normalized;
-
-                Vector3 modifiedMovement = _modifier.ApplyMovementEffects(homingDir);
-                _movementModule.Move(modifiedMovement);
-            }
+            obstacleCenterDir += dir;
         }
+        obstacleCenterDir.Normalize();
+        Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (obstacleCenterDir * 3f), Color.magenta);
     }
 }

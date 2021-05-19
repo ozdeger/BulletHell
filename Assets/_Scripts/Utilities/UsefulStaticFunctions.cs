@@ -38,6 +38,22 @@ namespace Utilities
             return tMin;
         }
 
+        public static Transform GetFarthestEnemy(Vector2 position, List<Transform> enemies)
+        {
+            Transform tMin = null;
+            float minDist = -1*Mathf.Infinity;
+            foreach (Transform t in enemies)
+            {
+                float dist = Vector2.Distance(t.position, position);
+                if (dist > minDist)
+                {
+                    tMin = t;
+                    minDist = dist;
+                }
+            }
+            return tMin;
+        }
+
         public static Transform GetClosestEnemy(Vector2 position, Collider2D[] enemies)
         {
             Transform tMin = null;
@@ -54,6 +70,21 @@ namespace Utilities
             return tMin;
         }
 
+        public static RaycastHit2D[] Raycast2DWithIgnore(Vector2 position , Vector2 dir, float range, GameObject ignoredObject)
+        {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(position, dir, range);
 
+            List<RaycastHit2D> resultHits = new List<RaycastHit2D>();
+
+            foreach(RaycastHit2D hit in hits)
+            {
+                if (hit.collider.gameObject != ignoredObject)
+                {
+                    resultHits.Add(hit);
+                }
+            }
+
+            return resultHits.ToArray();
+        }
     }
 }

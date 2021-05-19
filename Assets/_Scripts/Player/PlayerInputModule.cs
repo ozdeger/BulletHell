@@ -23,7 +23,6 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");
         dir = dir.normalized;
-        
         if (Input.GetKeyDown("space"))
         {
             //_movementModule.Sprint();
