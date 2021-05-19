@@ -8,21 +8,20 @@ using System;
 public class KıteAIModule : MonoBehaviour
 {   
     
-
+    [Header("Options")]
     [SerializeField] private float kiteDistance;
     [SerializeField] private float chaseDistance;
-
     [SerializeField] private float tempSetMoveSpeed;
 
     private MovementModifier _modifier;
     private IMovementModule _movementModule;
     private MovementModule _MovementModule;
 
-
-    private Vector2 obstacleCenterDir = Vector2.zero;
-    private Collider2D _collider;
-    private Vector2 colliderCenter;
+    private Collider2D _collider;  
     private float obstacleMultiplier;
+    private Vector2 dir;
+    private Vector2 colliderCenter;
+    private Vector2 obstacleCenterDir = Vector2.zero;
 
     private Vector2[] _raycastDirections =
     {
@@ -36,10 +35,6 @@ public class KıteAIModule : MonoBehaviour
         new Vector2(-0.7f,0.7f),              
     };
     
-
-
-    Vector3 center;
-    Vector3 size;
     Vector2 targetPos;
 
     private void Start()
@@ -47,10 +42,6 @@ public class KıteAIModule : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _modifier = GetComponent<MovementModifier>();
         _movementModule = GetComponent<IMovementModule>();
-        center = new Vector3(0, 0, 0);
-        size = new Vector3(5, 3 ,0);
-
-        
 
         InvokeRepeating(nameof(CheckAround), 0, .1f);
     }
@@ -58,29 +49,25 @@ public class KıteAIModule : MonoBehaviour
     private void Update()
     {
         NormalMovement();
-        
-
     }
 
     private void NormalMovement()
     {
-        Vector2 dir = Vector2.zero;
+        dir = Vector2.zero;
 
         if (Vector2.Distance(PlayerManager.Instance.Player.position, transform.position) >= chaseDistance)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, obstacleCenterDir, 2f);
-            dir = (PlayerManager.Instance.Player.position - transform.position).normalized;
-            dir = (dir / 2 - obstacleCenterDir * (1 - (hit.distance / 2)));
+            DetermineDirection(1, hit);
         }
 
         if (Vector2.Distance(PlayerManager.Instance.Player.position, transform.position) < kiteDistance)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, obstacleCenterDir, 2f);
-            dir = (PlayerManager.Instance.Player.position - transform.position).normalized;
-            dir = (-dir / 2 - obstacleCenterDir * (1-(hit.distance / 2)));
+            DetermineDirection(-1, hit);
         }
 
-        if (dir.sqrMagnitude >.01f)
+        if (dir.sqrMagnitude > .01f)
         {
             Debug.Log(dir.sqrMagnitude);
             dir.Normalize();
@@ -90,48 +77,10 @@ public class KıteAIModule : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void DetermineDirection(float multiplierDir, RaycastHit2D hit)
     {
-        /*if (collision.gameObject.tag == "Obstacle")
-        {
-            _MovementModule = GetComponent<MovementModule>();
-            _MovementModule.setMoveSpeed(tempSetMoveSpeed);
-
-            GetNewTargetPosition();
-            isHit = true;
-        }*/
-    }
-
-
-    private void HitMovement()
-    {
-        Vector2 dir = Vector2.zero;
-
-        if(Vector2.Distance(targetPos, transform.position) >= .1f)
-        {
-            dir = targetPos - (Vector2) transform.position;
-            dir = dir.normalized;
-        }
-        else
-        {
-            GetNewTargetPosition();
-        }
-        if (dir != Vector2.zero)
-        {
-            Vector3 modifiedMovement = _modifier.ApplyMovementEffects(dir);
-            _movementModule.Move(modifiedMovement);
-        }    
-    }
-    
-    private void GetNewTargetPosition()
-    {
-        //targetPos = center + new Vector3(Random.Range(-size.x, size.x), Random.Range(-size.y, size.y), 0);
-    }
-    
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(targetPos, .2f);
+        dir = (PlayerManager.Instance.Player.position - transform.position).normalized;
+        dir = (multiplierDir * dir / 2 - obstacleCenterDir * (1 - (hit.distance / 2)));
     }
 
     private void CheckAround()
@@ -142,13 +91,13 @@ public class KıteAIModule : MonoBehaviour
         List<Vector2> hitDirections = new List<Vector2>();
         for (int i = 0; i < _raycastDirections.Length; i++)
         {
-            Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (_raycastDirections[i] * 2f), Color.red,.1f);
+            //Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (_raycastDirections[i] * 2f), Color.red,.1f);
             RaycastHit2D[] hitResults = UsefulStaticFunctions.Raycast2DWithIgnore(colliderCenter, _raycastDirections[i], 2f, gameObject);
             foreach(RaycastHit2D hit in hitResults)
             {
                 if(hit.collider.gameObject.GetComponent<Tag>().Tags.Contains(Tags.Obstacle))
                 {
-                    Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (_raycastDirections[i] * 2f), Color.green,.1f);
+                    //Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (_raycastDirections[i] * 2f), Color.green,.1f);
                     hitDirections.Add(_raycastDirections[i]);
                 }             
             }                
@@ -159,6 +108,6 @@ public class KıteAIModule : MonoBehaviour
             obstacleCenterDir += dir;
         }
         obstacleCenterDir.Normalize();
-        Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (obstacleCenterDir * 3f), Color.magenta);
+        //Debug.DrawLine(colliderCenter, (Vector2)colliderCenter + (obstacleCenterDir * 3f), Color.magenta);
     }
 }
