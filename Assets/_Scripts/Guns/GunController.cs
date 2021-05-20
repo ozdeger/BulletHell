@@ -9,8 +9,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private Transform gunObject;
     [SerializeField] private Transform bullerSpawnPoint;
     [SerializeField] private GameObject bulletBlueprint;
-    [SerializeField] public enum Mode { Single, Burst};
-    [SerializeField] public Mode curMode = Mode.Single;
+
 
     [Header("Burst Options")]    
     [SerializeField] private float bulletDelay;
@@ -21,56 +20,23 @@ public class GunController : MonoBehaviour
     [SerializeField] private float fireRate;
 
    
-    private Camera _camera;
-    private int gun_mode = 1;
+    
+
     private float _lastShot = 0f;
    
 
 
     private void Start()
     {
-        _camera = CameraManager.Instance.Camera;
+        
     }
 
     private void Update()
     {
-        TakeSight();
-        CheckShoot();
+    
     }
 
-    private void CheckShoot()
-    {
-        ChangeMode();
-         switch (curMode)
-            {
-                case Mode.Single:
-                    if (Input.GetMouseButton(0))
-                    {
-                        ShootBullet();   
-                    }
-                    break;
-                case Mode.Burst:
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        ShootBurst();
-                    }
-                    break;
-                default:
-                    break;
-            }    
-    }
-
-    private void ChangeMode()
-    {
-        if (Input.GetKeyDown("b")) 
-        { 
-            gun_mode *= -1; 
-            if (gun_mode == 1) { curMode = Mode.Single; }
-            else { curMode = curMode = Mode.Burst; }
-        }  
-    }
-
-    private void ShootBullet()
+    public void ShootBullet()
     {
         if(Time.time > fireRate + _lastShot)
         {
@@ -88,13 +54,12 @@ public class GunController : MonoBehaviour
         newBullet.SetActive(true);
     }
 
-    private void TakeSight()
+    public void TakeSight(Vector3 vec)
     {
-        Vector3 mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        Vector3 aimDirection = (mousePosition - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        gunObject.eulerAngles = new Vector3(0, 0, angle);
+        
+        gunObject.eulerAngles = vec;
+
+        Debug.Log(gunObject.eulerAngles);
     }
 
     private IEnumerator ShootBurstRoutine()
@@ -105,7 +70,7 @@ public class GunController : MonoBehaviour
             yield return new WaitForSeconds(bulletDelay);
         }
     }
-    private void ShootBurst()
+    public void ShootBurst()
     {
         StartCoroutine(ShootBurstRoutine());
     }

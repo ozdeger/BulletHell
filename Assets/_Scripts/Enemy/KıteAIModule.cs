@@ -69,7 +69,6 @@ public class KıteAIModule : MonoBehaviour
 
         if (dir.sqrMagnitude > .01f)
         {
-            Debug.Log(dir.sqrMagnitude);
             dir.Normalize();
             Debug.DrawLine(transform.position, (Vector2)transform.position + (dir * 3f), Color.magenta);
             Vector3 modifiedMovement = _modifier.ApplyMovementEffects(dir);
