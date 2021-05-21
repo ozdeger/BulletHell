@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerInputModule : MonoBehaviour, IInputModule
 {
-    [SerializeField] public enum GunMods { Single, Burst };
-    [SerializeField] public GunMods curMode = GunMods.Single;
 
     private MovementModifier _modifier;
     private IMovementModule _movementModule;
     private IDashModule _dashModule;
     private GunController _gunController;
 
-    private int gun_mode = 1;
     private Camera _camera;
+    private int gunModeFlag = 1;
 
     Vector2 dir;
 
@@ -25,6 +23,7 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
         _gunController = GetComponent<GunController>();
 
         _camera = CameraManager.Instance.Camera;
+
     }
 
     private void Update()
@@ -50,23 +49,19 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
     public void CheckShoot()
     {
         ChangeGunMode();
-
-        switch (curMode)
+        if (gunModeFlag == 1)
         {
-            case GunMods.Single:
-                if (Input.GetMouseButton(0))
-                {
-                    _gunController.ShootBullet();
-                }
-                break;
-            case GunMods.Burst:
-                if (Input.GetMouseButtonDown(0))
-                {
-                    _gunController.ShootBurst();
-                }
-                break;
-            default:
-                break;
+            if (Input.GetMouseButton(0))
+            {
+                _gunController.test();
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _gunController.test();
+            }
         }
     }
 
@@ -83,15 +78,9 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
     {
         if (Input.GetKeyDown("b"))
         {
-            ChangeMode();
+            _gunController.ChangeMode();
+            gunModeFlag *= -1;
         }
-    }
-
-    private void ChangeMode()
-    {
-        gun_mode *= -1;
-        if (gun_mode == 1) { curMode = GunMods.Single; }
-        else { curMode = curMode = GunMods.Burst; }
     }
 
     private void TakeSightInput()

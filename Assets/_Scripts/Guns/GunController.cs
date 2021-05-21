@@ -11,16 +11,20 @@ public class GunController : MonoBehaviour
     [SerializeField] private GameObject bulletBlueprint;
 
 
-    [Header("Burst Options")]    
+    [Header("Burst Options")]
+    
     [SerializeField] private float bulletDelay;
     [SerializeField] private float burstCounter;
-    
+    [SerializeField] public enum GunMods { Single, Burst };
+    [SerializeField] public GunMods curMode = GunMods.Single;    
 
     [Header("Single Options")]
     [SerializeField] private float fireRate;
 
-   
     
+    private int gun_mode = 1;
+    private Camera _camera;
+
 
     private float _lastShot = 0f;
    
@@ -28,7 +32,7 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        
+        _camera = CameraManager.Instance.Camera;
     }
 
     private void Update()
@@ -54,12 +58,32 @@ public class GunController : MonoBehaviour
         newBullet.SetActive(true);
     }
 
+    public void test()
+    {
+        switch (curMode)
+        {
+            case GunMods.Single:
+                    ShootBullet();
+                break;
+            case GunMods.Burst:           
+                   ShootBurst();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    public void ChangeMode()
+    {
+        gun_mode *= -1;
+        if (gun_mode == 1) { curMode = GunMods.Single; }
+        else { curMode = curMode = GunMods.Burst; }
+    }
+
     public void TakeSight(Vector3 vec)
     {
-        
         gunObject.eulerAngles = vec;
-
-        Debug.Log(gunObject.eulerAngles);
     }
 
     private IEnumerator ShootBurstRoutine()
