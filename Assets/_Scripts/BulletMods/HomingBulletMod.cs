@@ -12,14 +12,11 @@ public class HomingBulletMod : BulletMod
     private List<Transform> _targetsInRange = new List<Transform>();
     private Rigidbody2D _rb;
 
-    public override void OnBulletDestroyed()
+
+    public void SetupMod(float range_, float homingSpeed_)
     {
-
-    }
-
-    public override void OnBulletHitSomething(GameObject something)
-    {
-
+        range = range_;
+        homingSpeed = homingSpeed_;
     }
 
     public override void OnBulletStart()
@@ -45,14 +42,21 @@ public class HomingBulletMod : BulletMod
 
         if (closestTarget) 
         { 
-            Vector2 homingDir = (closestTarget.position - transform.position).normalized; 
+            Vector2 homingDir = (closestTarget.GetComponent<Collider2D>().bounds.center - transform.position).normalized; 
             _rb.AddForce(homingDir * homingSpeed, ForceMode2D.Impulse);
         }
-        
+    }
 
-        
+    public override void OnBulletDestroyed()
+    {
 
     }
+
+    public override void OnBulletHitSomething(GameObject something)
+    {
+
+    }
+
 
     private void OnDrawGizmos()
     {

@@ -242,7 +242,6 @@ GameObject:
   - component: {fileID: 2796467142421314734}
   - component: {fileID: 6286092169320832882}
   - component: {fileID: 2138058491}
-  - component: {fileID: 538929799982426474}
   m_Layer: 0
   m_Name: BulletBlueprint
   m_TagString: Untagged
@@ -376,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f922483cc08ba40a30620c3c02fe52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageableTags: 01000000
+  damageableTags: 03000000
   damage: 30
 --- !u!114 &6286092169320832882
 MonoBehaviour:
@@ -403,20 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccfdb84fc081424092bf55236e1d0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 06000000
---- !u!114 &538929799982426474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804335647668371561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfeb3dc2522207b4fa68ba190742457c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 1.25
+  tags: 08000000
 --- !u!1 &8648506313749892292
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,9 +567,9 @@ MonoBehaviour:
   gunObject: {fileID: 322309011}
   bullerSpawnPoint: {fileID: 2002510795}
   bulletBlueprint: {fileID: 6804335647668371561}
-  curMode: 0
   bulletDelay: 0.05
   burstCounter: 2
+  curMode: 0
   fireRate: 0.5
 --- !u!114 &4442200910379319883
 MonoBehaviour:
@@ -597,7 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccfdb84fc081424092bf55236e1d0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 0300000002000000
+  tags: 0500000002000000
 --- !u!114 &1612098726161979693
 MonoBehaviour:
   m_ObjectHideFlags: 0
