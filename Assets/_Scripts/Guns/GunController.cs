@@ -19,7 +19,7 @@ public class GunController : MonoBehaviour
     [SerializeField] public GunMods curMode = GunMods.Single;    
 
     [Header("Single Options")]
-    [SerializeField] private float fireRate;
+    [SerializeField] private float _fireRate;
 
     
     private int gun_mode = 1;
@@ -31,7 +31,7 @@ public class GunController : MonoBehaviour
 
 
     private void Start()
-    {
+    {      
         _camera = CameraManager.Instance.Camera;
     }
 
@@ -42,7 +42,7 @@ public class GunController : MonoBehaviour
 
     public void ShootBullet()
     {
-        if(Time.time > fireRate + _lastShot)
+        if(Time.time > _fireRate + _lastShot)
         {
             Shoot();
             _lastShot = Time.time;
@@ -97,6 +97,11 @@ public class GunController : MonoBehaviour
     public void ShootBurst()
     {
         StartCoroutine(ShootBurstRoutine());
+    }
+
+    public void UpdateFireRate(float fireRate)
+    {
+        _fireRate = fireRate;
     }
 
     //private void ShootShotgun()

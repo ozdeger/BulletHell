@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletDealDamage : BulletMod
 {
     [SerializeField] private List<Tags> damageableTags;
-    [SerializeField] private float damage;
+    private float _damage;
 
     public override void OnBulletHitSomething(GameObject something)
     {
@@ -15,7 +15,7 @@ public class BulletDealDamage : BulletMod
             {
                 if (somethingsTag.Tags.Contains(tag))
                 {
-                    BulletController.DealDamageToTarget(something.transform, damage);
+                    BulletController.DealDamageToTarget(something.transform, _damage);
                     return;
                 }
 
@@ -33,5 +33,10 @@ public class BulletDealDamage : BulletMod
 
     public override void OnBulletStart()
     {
+    }
+
+    public void UpdateBulletDamage(float bulletDamage)
+    {
+        _damage = bulletDamage;
     }
 }

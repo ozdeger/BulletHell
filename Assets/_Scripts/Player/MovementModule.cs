@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementModule : MonoBehaviour, IMovementModule
 {
-    [SerializeField] private float moveSpeed = 2f;
+    private float _moveSpeed;
 
     private Rigidbody2D _rb;
 
@@ -22,14 +22,14 @@ public class MovementModule : MonoBehaviour, IMovementModule
     {
         if (_active)
         {
-            _rb.MovePosition(_rb.position + _dir * moveSpeed * Time.fixedDeltaTime);
+            _rb.MovePosition(_rb.position + _dir * _moveSpeed * Time.fixedDeltaTime);
             _dir = Vector2.zero;        
         }
     }
 
     public void Sprint()
     {
-        moveSpeed = moveSpeed * 2;
+        _moveSpeed = _moveSpeed * 2;
         coroutine = IncreaseSpeed(3.0f);
         StartCoroutine(coroutine);
     }
@@ -37,16 +37,21 @@ public class MovementModule : MonoBehaviour, IMovementModule
     private IEnumerator IncreaseSpeed(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        moveSpeed = moveSpeed / 2;
+        _moveSpeed = _moveSpeed / 2;
     }
 
     public void setMoveSpeed(float increaseSpeed)
     {
-        moveSpeed = increaseSpeed;
+        _moveSpeed = increaseSpeed;
     }
 
     public void Move(Vector2 dir)
     {
         _dir = dir;
+    }
+
+    public void UpdateMoveSpeed(float moveSpeed)
+    {
+        _moveSpeed = moveSpeed;
     }
 }

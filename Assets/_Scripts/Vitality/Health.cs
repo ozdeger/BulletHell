@@ -5,24 +5,25 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] [ShowOnly] private float _curHealth;
-    [SerializeField] float maxHealth = 100f;
+    [SerializeField] float _maxHealth;
 
     [Header("Health Bar")]
     [SerializeField] private Transform bar;
 
     public float CurHealth { get => _curHealth; }
 
-    public float MaxHealth { get => maxHealth; }
+    public float MaxHealth { get => _maxHealth; }
 
     private void Start()
     {
+        
         ResetHealth();
         UpdateHealthBar();
     }
 
     public void ResetHealth()
     {
-        _curHealth = maxHealth;
+        _curHealth = _maxHealth;
         UpdateHealthBar();
     }
 
@@ -38,14 +39,14 @@ public class Health : MonoBehaviour
 
     public void HealthRegen()
     {
-        if(_curHealth < maxHealth )
+        if(_curHealth < _maxHealth )
         {
             _curHealth += 5f;
         }
 
-        if (_curHealth > maxHealth)
+        if (_curHealth > _maxHealth)
         {
-            _curHealth = maxHealth;
+            _curHealth = _maxHealth;
         }
     }
     
@@ -59,7 +60,7 @@ public class Health : MonoBehaviour
     {
         if (bar)
         {
-            SetSize(_curHealth / maxHealth);
+            SetSize(_curHealth / _maxHealth);
         }
     }
 
@@ -71,5 +72,11 @@ public class Health : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void UpdateMaxHealth(float maxHealth)
+    {
+        _maxHealth = maxHealth;
+        _curHealth += maxHealth;
     }
 }

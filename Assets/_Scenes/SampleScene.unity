@@ -492,7 +492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f3ae037701d0f4e91798938e48b4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
 --- !u!114 &154911007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +505,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageableTags: 05000000
-  damage: 30
 --- !u!114 &154911008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3452,6 +3450,7 @@ Transform:
   - {fileID: 1388710983}
   - {fileID: 56736023}
   - {fileID: 923276439}
+  - {fileID: 1429902571}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3501,6 +3500,62 @@ Transform:
   m_Father: {fileID: 1367905215}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1429902570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429902571}
+  - component: {fileID: 1429902572}
+  m_Layer: 0
+  m_Name: Stats Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429902571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429902570}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1367905215}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429902572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429902570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f3ce1a57edf2e47a52295a7bd8c6b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  _bulletSizeBase: {x: 0, y: 0}
+  _moveSpeedBase: 0
+  _healthBase: 0
+  _bulletSpeedBase: 0
+  _bulletDamageBase: 0
+  _fireRateBase: 0
+  _bulletSizeMultiplier: 0
+  _moveSpeedMultiplier: 0
+  _healthMultiplier: 0
+  _bulletSpeedMultiplier: 0
+  _bulletDamageMultiplier: 0
+  _fireRateMultiplier: 0
 --- !u!1 &1453478838
 GameObject:
   m_ObjectHideFlags: 0
@@ -4491,7 +4546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ca3683501145d4783fd5a414e70fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
 --- !u!212 &2013154861
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4615,7 +4669,7 @@ MonoBehaviour:
   bulletDelay: 0.05
   burstCounter: 2
   curMode: 0
-  fireRate: 0.5
+  _fireRate: 0
 --- !u!114 &2013154866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4642,7 +4696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curHealth: 0
-  maxHealth: 100
+  _maxHealth: 0
   bar: {fileID: 557484552}
 --- !u!114 &2013154868
 MonoBehaviour:
@@ -4853,6 +4907,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1650440109645331120, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
+      propertyPath: fireRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442200910379319883, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
+      propertyPath: tags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5295283679388123834, guid: ea206abada5cd934890b75f4bddf37cb, type: 3}
       propertyPath: m_RootOrder
       value: 4

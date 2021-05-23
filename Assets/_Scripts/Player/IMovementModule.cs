@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IMovementModule
 {
-    public abstract void Move(Vector2 dir);
-    public abstract void Sprint();
+    void UpdateMoveSpeed(float moveSpeed);
+    void Move(Vector2 dir);
+    void Sprint();
 }
