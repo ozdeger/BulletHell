@@ -52,12 +52,12 @@ public class PlayerStatsManager : AutoCleanupSingleton<PlayerStatsManager>
     }
 
     [Header("Multipler Values")]
-    [SerializeField] [ShowOnly] private float _bulletSizeMultiplier = 1;
-    [SerializeField] [ShowOnly] private float _moveSpeedMultiplier = 1;
-    [SerializeField] [ShowOnly] private float _healthMultiplier = 1;
-    [SerializeField] [ShowOnly] private float _bulletSpeedMultiplier = 1;
-    [SerializeField] [ShowOnly] private float _bulletDamageMultiplier = 1;
-    [SerializeField] [ShowOnly] private float _fireRateMultiplier = 1;
+    [ShowOnly] private float _bulletSizeMultiplier = 1;
+    [ShowOnly] private float _moveSpeedMultiplier = 1;
+    [ShowOnly] private float _healthMultiplier = 1;
+    [ShowOnly] private float _bulletSpeedMultiplier = 1;
+    [ShowOnly] private float _bulletDamageMultiplier = 1;
+    [ShowOnly] private float _fireRateMultiplier = 1;
 
     public float BulletSizeMultiplier
     {
@@ -90,7 +90,6 @@ public class PlayerStatsManager : AutoCleanupSingleton<PlayerStatsManager>
         set { _fireRateMultiplier = value; UpdateFireRate(); }
     }
 
-
     private void UpdateMoveSpeed()
     {
         PlayerManager.Instance.Player.GetComponent<IMovementModule>().UpdateMoveSpeed(MoveSpeed);
@@ -105,7 +104,7 @@ public class PlayerStatsManager : AutoCleanupSingleton<PlayerStatsManager>
     }
     private void UpdateBulletSpeed()
     {
-        PlayerManager.Instance.Player.GetComponent<BulletMoveNormal>().UpdateBulletSpeed(BulletSpeed);
+        PlayerManager.Instance.BulletBlueprint.GetComponent<BulletMoveNormal>().UpdateBulletSpeed(BulletSpeed);
     }
     private void UpdateFireRate()
     {
@@ -113,6 +112,16 @@ public class PlayerStatsManager : AutoCleanupSingleton<PlayerStatsManager>
     }
     private void UpdateBulletDamage()
     {
-        PlayerManager.Instance.Player.GetComponent<BulletDealDamage>().UpdateBulletDamage(BulletDamage);
+        PlayerManager.Instance.BulletBlueprint.GetComponent<BulletDealDamage>().UpdateBulletDamage(BulletDamage);
+    }
+
+    private void Awake()
+    {
+        UpdateMoveSpeed();
+        UpdateBulletSize();
+        UpdateHealth();
+        UpdateBulletSpeed();
+        UpdateFireRate();
+        UpdateBulletDamage();
     }
 }

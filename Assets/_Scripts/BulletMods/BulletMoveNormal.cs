@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletMoveNormal : BulletMod
 {
-    private float _speed;
+    [SerializeField] [ShowOnly] private float _speed;
 
     public override void OnBulletDestroyed()
     {
@@ -20,11 +20,13 @@ public class BulletMoveNormal : BulletMod
 
     public override void OnBulletStart()
     {
+        Debug.Log("start"+_speed);
         GetComponent<Rigidbody2D>().AddForce(transform.right * _speed, ForceMode2D.Impulse);
     }
 
     public void UpdateBulletSpeed(float speed)
     {
         _speed = speed;
+        Debug.Log(_speed);
     }
 }

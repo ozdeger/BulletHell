@@ -19,7 +19,7 @@ public class GunController : MonoBehaviour
     [SerializeField] public GunMods curMode = GunMods.Single;    
 
     [Header("Single Options")]
-    [SerializeField] private float _fireRate;
+    private float _fireRate;
 
     
     private int gun_mode = 1;
