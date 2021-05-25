@@ -23,7 +23,7 @@ public class MovementModule : MonoBehaviour, IMovementModule
         if (_active)
         {
             _rb.MovePosition(_rb.position + _dir * _moveSpeed * Time.fixedDeltaTime);
-            _dir = Vector2.zero;        
+            _dir = Vector2.zero;
         }
     }
 
