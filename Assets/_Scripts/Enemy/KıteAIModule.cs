@@ -9,9 +9,9 @@ public class KıteAIModule : MonoBehaviour
 {   
     
     [Header("Options")]
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float kiteDistance;
     [SerializeField] private float chaseDistance;
-    [SerializeField] private float tempSetMoveSpeed;
 
     private MovementModifier _modifier;
     private IMovementModule _movementModule;
@@ -42,6 +42,8 @@ public class KıteAIModule : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _modifier = GetComponent<MovementModifier>();
         _movementModule = GetComponent<IMovementModule>();
+
+        _movementModule.UpdateMoveSpeed(moveSpeed);//make it better, ask gokay
 
         InvokeRepeating(nameof(CheckAround), 0, .1f);
     }
@@ -78,6 +80,7 @@ public class KıteAIModule : MonoBehaviour
 
     private void DetermineDirection(float multiplierDir, RaycastHit2D hit)
     {
+        
         dir = (PlayerManager.Instance.Player.position - transform.position).normalized;
         dir = (multiplierDir * dir / 2 - obstacleCenterDir * (1 - (hit.distance / 2)));
     }

@@ -11,6 +11,7 @@ public class EnemyAIShoot : MonoBehaviour
     private GunController _gunController;
     private Camera _camera;
     private Collider2D _collider;
+    private BulletMoveNormal _bMoveNormal;
 
     private Vector2 playerColliderCenter;
 
@@ -18,22 +19,28 @@ public class EnemyAIShoot : MonoBehaviour
     void Start()
     {
         _gunController = GetComponent<GunController>();
+        _collider = GetComponent<Collider2D>();
         _camera = CameraManager.Instance.Camera;
+        _bMoveNormal = GetComponent<BulletMoveNormal>();
+        
     }
     void Update()
     {
         GetLine();
         TakeSightInput();
+        var bulletSpeed = FindObjectOfType<BulletMoveNormal>();//ask gokay
+        if (bulletSpeed) { bulletSpeed.UpdateBulletSpeed(10); }
     }
 
     private void GetLine()
     {
         playerColliderCenter = PlayerManager.Instance.Player.GetComponent<Collider2D>().bounds.center;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (playerColliderCenter - (Vector2)transform.position).normalized, range);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (playerColliderCenter - (Vector2)transform.position ).normalized, range);
           
         if (hit.collider.gameObject.GetComponent<Tag>().Tags.Contains(Tags.Player))
         {
+            Debug.DrawLine(transform.position, hit.point, Color.green);
             _gunController.test();
         }
 
