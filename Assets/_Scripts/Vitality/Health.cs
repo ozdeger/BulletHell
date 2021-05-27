@@ -77,7 +77,7 @@ public class Health : MonoBehaviour
 
     public void UpdateMaxHealth(float maxHealth)
     {
+        _curHealth += maxHealth - _maxHealth;
         _maxHealth = maxHealth;
-        _curHealth += maxHealth;
     }
 }
