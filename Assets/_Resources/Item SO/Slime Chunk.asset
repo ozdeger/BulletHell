@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Slime Chunk
   m_EditorClassIdentifier: 
   goldCost: 0
-  art: {fileID: 1228791549236833675, guid: 7ac0274785d4b6f40a3c6042073337ec, type: 3}
-  artSize: {x: 5, y: 5}
+  art: {fileID: 21300000, guid: 3dc2c118c2e24d44aad4f8f74188d5e5, type: 3}
+  artSize: {x: 0.5, y: 0.5}
   trailPrefab: {fileID: 1517869041484361232, guid: 0739522ab0fbc2940a26be1f52a7f4f3, type: 3}
