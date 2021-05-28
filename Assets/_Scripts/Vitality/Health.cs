@@ -35,7 +35,6 @@ public class Health : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        Debug.Log(_isInvincible);
         if (!_isInvincible)
         {
             _curHealth -= damage;

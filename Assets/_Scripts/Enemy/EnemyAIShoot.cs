@@ -18,6 +18,7 @@ public class EnemyAIShoot : MonoBehaviour
     {
         _gunController = GetComponent<GunController>();
         _camera = CameraManager.Instance.Camera;
+        _gunController.FireRate = 0.5f;//ask gokay
         bulletBlueprint.GetComponent<BulletDealDamage>().UpdateBulletDamage(25);//ask gokay
         
     }

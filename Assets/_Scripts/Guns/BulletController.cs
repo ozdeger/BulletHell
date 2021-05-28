@@ -61,7 +61,7 @@ public class BulletController : MonoBehaviour
     {
         Health healthController = target.GetComponent<Health>();
         /*HealthBar healthBar = target.GetComponent<HealthBar>();
-healthBar.SetSize(healthController.CurHealth / healthController.MaxHealth);*/
+        healthBar.SetSize(healthController.CurHealth / healthController.MaxHealth);*/
         healthController.DealDamage(damage);
         
     }

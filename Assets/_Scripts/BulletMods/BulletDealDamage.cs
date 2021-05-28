@@ -15,7 +15,6 @@ public class BulletDealDamage : BulletMod
             {
                 if (somethingsTag.Tags.Contains(tag))
                 {
-                    Debug.Log(something.transform+" "+_damage);
                     BulletController.DealDamageToTarget(something.transform, _damage);
                     return;
                 }

@@ -27,6 +27,8 @@ public class GunController : MonoBehaviour
 
 
     private float _lastShot = 0f;
+
+    public float FireRate { set { _fireRate = value; } }
    
 
 
@@ -42,6 +44,7 @@ public class GunController : MonoBehaviour
 
     public void ShootBullet()
     {
+        Debug.Log(_fireRate);
         if(Time.time > _fireRate + _lastShot)
         {
             Shoot();
