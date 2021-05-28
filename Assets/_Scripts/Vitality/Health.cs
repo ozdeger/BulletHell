@@ -10,6 +10,11 @@ public class Health : MonoBehaviour
     [Header("Health Bar")]
     [SerializeField] private Transform bar;
 
+
+    [SerializeField] private bool _isInvincible = false;
+
+    //public bool IsInvincible { get => _isInvincible; }
+
     public float CurHealth { get => _curHealth; }
 
     public float MaxHealth { get => _maxHealth; }
@@ -30,12 +35,17 @@ public class Health : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        _curHealth -= damage;
-        if(_curHealth <= 0)
+        Debug.Log(_isInvincible);
+        if (!_isInvincible)
         {
-            Die();
+            _curHealth -= damage;
+            if(_curHealth <= 0)
+            {
+                Die();
+            }
+            UpdateHealthBar();
         }
-        UpdateHealthBar();
+        
     }
 
     public void HealthRegen()
@@ -79,5 +89,24 @@ public class Health : MonoBehaviour
     {
         _curHealth += maxHealth - _maxHealth;
         _maxHealth = maxHealth;
+    }
+
+    public void WhileDashing()
+    {
+        _isInvincible = true;
+    }
+
+    public void CheckInvincible(float DashSeconds)
+    {
+        WhileDashing();
+        if (_isInvincible)
+        {
+            Invoke(nameof(StopInvincible), DashSeconds);
+        }
+    }
+
+    private void StopInvincible()
+    {
+        _isInvincible = false;
     }
 }

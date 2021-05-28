@@ -5,23 +5,20 @@ using Utilities;
 
 public class EnemyAIShoot : MonoBehaviour
 {
-
+    [Header("Requires")]
+    [SerializeField] private GameObject bulletBlueprint;
     [SerializeField] private float range;
 
     private GunController _gunController;
     private Camera _camera;
-    private Collider2D _collider;
-    private BulletMoveNormal _bMoveNormal;
 
     private Vector2 playerColliderCenter;
 
-   
     void Start()
     {
         _gunController = GetComponent<GunController>();
-        _collider = GetComponent<Collider2D>();
         _camera = CameraManager.Instance.Camera;
-        _bMoveNormal = GetComponent<BulletMoveNormal>();
+        bulletBlueprint.GetComponent<BulletDealDamage>().UpdateBulletDamage(25);//ask gokay
         
     }
     void Update()

@@ -431,7 +431,6 @@ GameObject:
   - component: {fileID: 154911007}
   - component: {fileID: 154911006}
   - component: {fileID: 154911005}
-  - component: {fileID: 154911004}
   m_Layer: 0
   m_Name: 'BulletBlueprint '
   m_TagString: Untagged
@@ -453,20 +452,6 @@ Transform:
   m_Father: {fileID: 2013154862}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &154911004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154911002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfeb3dc2522207b4fa68ba190742457c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 2
-  homingSpeed: 2
 --- !u!114 &154911005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,6 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageableTags: 05000000
+  _damage: 0
 --- !u!114 &154911008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,8 +914,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232546812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.61, y: 2.33, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: -2.76, y: 2.14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 888135102}
   m_RootOrder: 0
@@ -2270,7 +2256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810934974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.66, y: 0.055439472, z: -18.294594}
+  m_LocalPosition: {x: -3.45, y: 2.17, z: -18.294594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1277389510}
@@ -3272,7 +3258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1277389508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.38, y: 2.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 810934977}
@@ -4666,14 +4652,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013154856}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b340c9e044562df48b9c3a8f9d468222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 3
   kiteDistance: 100
   chaseDistance: 200
-  tempSetMoveSpeed: 4
 --- !u!114 &2013154858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4845,11 +4831,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013154856}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c05c988ec498b67458483cbb949adbe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletBlueprint: {fileID: 154911002}
   range: 100
 --- !u!114 &2013154867
 MonoBehaviour:
@@ -4864,8 +4851,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curHealth: 0
-  _maxHealth: 0
+  _maxHealth: 100
   bar: {fileID: 0}
+  _isInvincible: 0
 --- !u!114 &2013154868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5145,8 +5133,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7578437245152725071}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.59, y: 1.67, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5376678486057271396}
   m_RootOrder: 0
@@ -5243,7 +5231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4930324212996917561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.93, y: 0.36, z: 0}
+  m_LocalPosition: {x: -5.94, y: 1.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2473112069762010370}

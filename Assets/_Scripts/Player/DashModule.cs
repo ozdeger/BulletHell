@@ -13,14 +13,17 @@ public class DashModule : MonoBehaviour, IDashModule
     [SerializeField] private Cooldown dashCooldown;
 
     private IMovementModule movementModule;
+    private Health _healthModule;
     private bool isDashing = false;
     private Vector2 moveStep;
 
     public bool IsDashing { get => isDashing; }
+    public float DashSeconds { get => dashSeconds; }
 
     private void Start()
     {
         movementModule = GetComponent<IMovementModule>();
+        _healthModule = GetComponent<Health>();
     }
 
     private void FixedUpdate()
@@ -39,11 +42,12 @@ public class DashModule : MonoBehaviour, IDashModule
         {
             dashCooldown.EnterCooldown();
             isDashing = true;
-
+            
             float calculatedDashSeconds = dashSeconds / movementSpeed;
             float distanceStep = dashDistance / ((calculatedDashSeconds));
             moveStep = distanceStep * dir;
 
+            _healthModule.CheckInvincible(calculatedDashSeconds);
             Invoke(nameof(StopDash), calculatedDashSeconds);
         }
     }
