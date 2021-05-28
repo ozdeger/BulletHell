@@ -46,8 +46,8 @@ public class DashModule : MonoBehaviour, IDashModule
             float calculatedDashSeconds = dashSeconds / movementSpeed;
             float distanceStep = dashDistance / ((calculatedDashSeconds));
             moveStep = distanceStep * dir;
-
-            _healthModule.CheckInvincible(calculatedDashSeconds);
+            
+            _healthModule.TurnInvincible(calculatedDashSeconds);
             Invoke(nameof(StopDash), calculatedDashSeconds);
         }
     }

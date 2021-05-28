@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [Header("Monitors")]
     [SerializeField] [ShowOnly] private float _curHealth;
-    [SerializeField] float _maxHealth;
+    [SerializeField] [ShowOnly] private int _isInvincible = 0;
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _invincibleWindow;
 
     [Header("Health Bar")]
     [SerializeField] private Transform bar;
-
-
-    [SerializeField] private bool _isInvincible = false;
 
     //public bool IsInvincible { get => _isInvincible; }
 
@@ -21,10 +21,8 @@ public class Health : MonoBehaviour
 
 
     private void Start()
-    {
-        
+    {     
         ResetHealth();
-        UpdateHealthBar();
     }
 
     public void ResetHealth()
@@ -35,16 +33,16 @@ public class Health : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        if (!_isInvincible)
+        if (_isInvincible != 0)  return;
+
+        _curHealth -= damage;
+        if (_curHealth <= 0)
         {
-            _curHealth -= damage;
-            if(_curHealth <= 0)
-            {
-                Die();
-            }
-            UpdateHealthBar();
+            Die();
         }
-        
+        UpdateHealthBar();
+
+        TurnInvincible(_invincibleWindow);
     }
 
     public void HealthRegen()
@@ -64,7 +62,6 @@ public class Health : MonoBehaviour
     {
         InvokeRepeating(nameof(HealthRegen), 2.0f, 0.1f);
     }
-
 
     private void UpdateHealthBar()
     {
@@ -90,22 +87,14 @@ public class Health : MonoBehaviour
         _maxHealth = maxHealth;
     }
 
-    public void WhileDashing()
+    public void TurnInvincible(float DashSeconds)
     {
-        _isInvincible = true;
-    }
-
-    public void CheckInvincible(float DashSeconds)
-    {
-        WhileDashing();
-        if (_isInvincible)
-        {
-            Invoke(nameof(StopInvincible), DashSeconds);
-        }
+        _isInvincible += 1;
+        Invoke(nameof(StopInvincible), DashSeconds);     
     }
 
     private void StopInvincible()
     {
-        _isInvincible = false;
+        _isInvincible -= 1;
     }
 }

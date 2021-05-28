@@ -53,14 +53,14 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
         {
             if (Input.GetMouseButton(0))
             {
-                _gunController.test();
+                _gunController.SwitchShootingMode();
             }
         }
         else
         {
             if (Input.GetMouseButtonDown(0))
             {
-                _gunController.test();
+                _gunController.SwitchShootingMode();
             }
         }
     }

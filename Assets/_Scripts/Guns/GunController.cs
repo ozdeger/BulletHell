@@ -29,22 +29,14 @@ public class GunController : MonoBehaviour
     private float _lastShot = 0f;
 
     public float FireRate { set { _fireRate = value; } }
-   
-
 
     private void Start()
     {      
         _camera = CameraManager.Instance.Camera;
     }
 
-    private void Update()
-    {
-    
-    }
-
     public void ShootBullet()
     {
-        Debug.Log(_fireRate);
         if(Time.time > _fireRate + _lastShot)
         {
             Shoot();
@@ -61,7 +53,7 @@ public class GunController : MonoBehaviour
         newBullet.SetActive(true);
     }
 
-    public void test()
+    public void SwitchShootingMode()
     {
         switch (curMode)
         {
@@ -75,7 +67,6 @@ public class GunController : MonoBehaviour
                 break;
         }
     }
-
 
     public void ChangeMode()
     {

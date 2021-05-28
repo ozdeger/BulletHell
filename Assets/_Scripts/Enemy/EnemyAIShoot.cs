@@ -39,7 +39,7 @@ public class EnemyAIShoot : MonoBehaviour
         if (hit.collider.gameObject.GetComponent<Tag>().Tags.Contains(Tags.Player))
         {
             Debug.DrawLine(transform.position, hit.point, Color.green);
-            _gunController.test();
+            _gunController.SwitchShootingMode();
         }
 
         else
