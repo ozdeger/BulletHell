@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerInputModule : MonoBehaviour, IInputModule
 {
+    [Header("Screen Shake")]
+    [SerializeField] private float _length = .03f;
+    [SerializeField] private float _power = .03f;
 
     private MovementModifier _modifier;
     private IMovementModule _movementModule;
@@ -12,6 +15,7 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
 
     private Camera _camera;
     private int gunModeFlag = 1;
+    
 
     Vector2 dir;
 
@@ -54,6 +58,7 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
             if (Input.GetMouseButton(0))
             {
                 _gunController.SwitchShootingMode();
+                ScreenShake.instance.StartShake(_length, _power);
             }
         }
         else
@@ -91,4 +96,6 @@ public class PlayerInputModule : MonoBehaviour, IInputModule
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         _gunController.TakeSight(new Vector3(0, 0, angle));
     }
+
+
 }
