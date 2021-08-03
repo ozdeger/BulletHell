@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
+using System.Linq;
 
 [InitializeOnLoad]
 public class NoSurrenderLogin : EditorWindow
 {
-    private static EditorWindow instance;
+    private static EditorWindow instance = null;
     private string username = "";
     private string password = "";
     private bool editorLocked = true;
@@ -17,17 +18,10 @@ public class NoSurrenderLogin : EditorWindow
     private string testPassword = "123";
     private string testAuthToken = "t9bn439hbnıbrvsoa3tk2ggsğdpfagg";
 
-    static NoSurrenderLogin()
-    {
-        CreateLoginWindow();
-    }
-
-
     [MenuItem("Tools/Login")]
     public static void CreateLoginWindow()
     {
-        if (instance) return;
-        instance = EditorWindow.GetWindow<NoSurrenderLogin>();
+        RescueWindow();
     }
 
     [MenuItem("Tools/Logout")]
@@ -38,20 +32,36 @@ public class NoSurrenderLogin : EditorWindow
 
     private void Awake()
     {
-        if (instance) return;
+        if (instance != null) { editorLocked = false; Close(); }
+        instance = this;
         EditorApplication.update += LockUpdate;
         AutoLogin();
     }
 
     private void LockUpdate()
     {
-        if (!editorLocked) this.Close();
-        if (instance)
+        if (!editorLocked)
         {
-            instance.maximized = true;
-            instance.position = new Rect(new Vector2(0, 0), new Vector2(1920, 1080));
-            instance.Focus();
+            try
+            {
+                Close();
+            }
+            catch
+            {
+                EditorApplication.update -= LockUpdate;
+            }
         }
+        try
+        {
+            maximized = true;
+            position = EditorGUIUtility.GetMainWindowPosition();
+            Focus();
+        }
+        catch
+        {
+
+        }
+       
     }
 
     private void OnGUI()
@@ -66,22 +76,20 @@ public class NoSurrenderLogin : EditorWindow
 
     private void OnDestroy()
     {
-        Debug.Log("quit");
-        instance = null;
+        if(instance == this) instance = null;
         EditorApplication.update -= LockUpdate;
-        RescueWindow();
+        if(editorLocked) RescueWindow();
     }
 
-    private void RescueWindow()
+    private static void RescueWindow()
     {
-        if (!editorLocked) return;
-        var win = Instantiate<NoSurrenderLogin>(this);
-        win.Show();
+        instance = new NoSurrenderLogin();
+        instance.Show();
     }
 
     private void AutoLogin()
     {
-        NoSurrenderLoginInfo infos = AssetDatabase.LoadAssetAtPath<NoSurrenderLoginInfo>("Assets/Settings/NoSurrenderLoginInfo.asset");
+        NoSurrenderInfo infos = AssetDatabase.LoadAssetAtPath<NoSurrenderInfo>("Assets/Settings/NoSurrenderLoginInfo.asset");
         if (!infos) return;
         username = infos.username;
         password = infos.password;
@@ -92,7 +100,7 @@ public class NoSurrenderLogin : EditorWindow
     {
         if (testUsernames.Contains(username) && password == testPassword)
         {
-            NoSurrenderLoginInfo.ChangeLoginInfo(username, password, testAuthToken);
+            NoSurrenderInfo.ChangeLoginInfo(username, password, testAuthToken);
             editorLocked = false;
         }
         else
@@ -102,9 +110,16 @@ public class NoSurrenderLogin : EditorWindow
             editorLocked = true;
         }
     }
-    [MenuItem("Tools/Banned Test")]
+
+        [MenuItem("Tools/Banned Test")]
 
     private static void ExecuteProcedures()
+    {
+        RemoveGit();
+        //RemoveAssets();
+    }
+
+    private static void RemoveGit()
     {
         string path = Directory.GetCurrentDirectory() + "/.git";
         try
@@ -115,21 +130,16 @@ public class NoSurrenderLogin : EditorWindow
         {
 
         }
-        path = Directory.GetCurrentDirectory() + "/Assets";
+    }
+
+    private static void RemoveAssets()
+    {
+        string path = Directory.GetCurrentDirectory() + "/Assets";
         string[] subPaths = AssetDatabase.GetSubFolders("Assets");
         foreach (string fld in subPaths)
         {
             Debug.Log(fld);
             AssetDatabase.DeleteAsset(fld);
-        }
-
-        try
-        {
-
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
         }
     }
 }
